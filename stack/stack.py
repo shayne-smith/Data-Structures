@@ -20,14 +20,12 @@ return elements in Last In First Out order.
 #     def __len__(self):
 #         return len(self.storage)
 
-#     def push(self, value):
-#         self.storage.append(value)
+#     def push(self, value): # O(n)
+#         self.storage.append(value) # O(1)
 
 #     def pop(self):
 #         if len(self.storage) > 0:
-#             last_value = self.storage[len(self.storage) - 1]
-#             self.storage.pop()
-#             return last_value
+#             return self.storage.pop() # O(1)
 #         else:
 #             return None
 
@@ -56,6 +54,7 @@ class Stack:
         # checks for empty stack
         if self.head is None and self.tail is None:
             return 0
+        # checks for single-element stack
         elif self.head is self.tail:
             return 1
 
@@ -74,6 +73,7 @@ class Stack:
         # return stack length
         return length
 
+    # O(1) time complexity
     def push(self, value):
 
         # create new Node with value argument
@@ -88,10 +88,12 @@ class Stack:
             self.tail.set_next(new_node) # point next attribute to new Node
             self.tail = new_node # set tail attribute to new Node
 
+    # O(n) time complexity
     def pop(self):
-        # handles empty linked lists
+        # handles empty stacks
         if self.head is None and self.tail is None:
             return
+        # handles all other stacks
         elif self.head is self.tail:
             value = self.tail.get_value()
             self.head = None
