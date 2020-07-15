@@ -246,6 +246,7 @@ class DoublyLinkedList:
                 current.prev.next = None # set new tail's next to None
                 self.tail = current.prev # set tail to new tail
 
+        # handles case when list has 1 element
         elif self.length == 1:
             self.length -= 1
             self.head = None
@@ -261,4 +262,12 @@ class DoublyLinkedList:
     in the List.
     """
     def get_max(self):
-        pass
+        max = 0
+        current = self.head
+
+        while current is not None:
+            if max < current.value:
+                max = current.value
+            current = current.next
+        
+        return max
