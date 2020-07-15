@@ -75,23 +75,31 @@ class BSTNode:
 
     # Return the maximum value found in the tree
     def get_max(self):
+
+        # max value will be on the right-most leaf
+        # recursively iterate through BST via right node until max value is found
         if self.right is None:
             return self.value
         return self.right.get_max()
                 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        # Pre-order traversal
-        # Base case
+
+        # Pre-order BST traversal
+        # Base case is when a leaf is reached
         if self.value is None:
             return
+
+        # run callback on current node
         fn(self.value)
+
+        # run callback on left subtree
         if self.left is not None:
             self.left.for_each(fn)
+
+        # run callback on right subtree
         if self.right is not None:
             self.right.for_each(fn)
-
-
 
     # Part 2 -----------------------
 
