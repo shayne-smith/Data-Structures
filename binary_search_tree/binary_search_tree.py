@@ -82,10 +82,11 @@ class BSTNode:
             return self.value
         return self.right.get_max()
                 
-    # Call the function `fn` on the value of each node
+    # Call the function `fn` on the value of each noden
+    # Pre-order BST traversal
+    # O(n)
     def for_each(self, fn):
 
-        # Pre-order BST traversal
         # Base case is when a leaf is reached
         if self.value is None:
             return
@@ -101,12 +102,69 @@ class BSTNode:
         if self.right is not None:
             self.right.for_each(fn)
 
+    def iterative_depth_first_for_each(self, fn):
+        # DFT: LIFO
+        # we'll use a stack
+        stack = []
+        stack.append(self)
+
+        # so long as our stack has nodes on it
+        # there's more nodes to traverse
+        while len(stack) > 0:
+            # pop the top node from the stack
+            current = stack.pop()
+
+            # add the current node's right child first
+            if current.right:
+                stack.append(current.right)
+            
+            # add the current node's left child
+            if current.left:
+                stack.append(current.left)
+            
+            # call the anonymous function
+            fn(current.value)
+
+    from collections import deque
+
+    def iterative_breadth_first_for_each(self, fn):
+        # BFT: FIFO
+        # we'll use a queue
+        queue = deque()
+        queue.append(self)
+        
+        # continue to traverse as long as there are nodes in the queue
+        while len(queue) > 0:
+            current = queue.popleft()
+
+            if current.left:
+                queue.append(current.left)
+            
+            if current.right:
+                queue.append(current.right)
+
+            fn(current)
+
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        # Base case is when a leaf is reached
+        if self.value is None:
+            return
+
+        # run callback on left subtree
+        if self.left:
+            self.left.in_order_print(self.left)
+        print(self.value)
+
+        # run callback on right subtree
+        if self.right:
+            self.right.in_order_print(self.right)
+
+        # # run callback on current node
+        # print(self.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
